@@ -10,6 +10,7 @@ class LoginView extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
+
           children: [
             Image.asset("assets/images/route_logo_registration.png",width: Constants.mediaQuery.width,height: Constants.mediaQuery.height*0.2,),
 
