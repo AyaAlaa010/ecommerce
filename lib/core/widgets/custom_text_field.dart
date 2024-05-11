@@ -76,7 +76,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
       inputFormatters: widget.inputFormatters,
       enabled: widget.enabled,
       style: theme.textTheme.bodyMedium?.copyWith(
-        fontWeight: FontWeight.w400
+        fontWeight: FontWeight.w300
       ),
       autovalidateMode: AutovalidateMode.onUserInteraction,
       textInputAction: widget.action ?? TextInputAction.done,
@@ -106,7 +106,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         hintStyle:Constants.theme.textTheme.bodyMedium!.copyWith(color: widget.hintColor,fontWeight:FontWeight.w300) ,
         counterText: "",
         border:  OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(10),
           borderSide: const BorderSide(
             color: Colors.white,
             width: 1,
@@ -115,7 +115,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         // suffix: isPass widget.suffixWidget,
         // contentPadding: const EdgeInsets.only(top: 5,left: 5, right: 5),
         disabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(10),
           borderSide: const BorderSide(
             color: Colors.white,
             width: 1,
@@ -125,22 +125,22 @@ class _CustomTextFieldState extends State<CustomTextField> {
           borderRadius: BorderRadius.circular(10),
           borderSide:const  BorderSide(
             color: Colors.white,
-            width: 2.5,
+            width: 1,
           ),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(10),
           borderSide:const  BorderSide(
             color: Colors.white,
             width: 1,
           ),
         ),
-        errorStyle:Constants.theme.textTheme.bodyMedium!.copyWith(color: Colors.deepOrangeAccent),
-        errorMaxLines: 6,
-        errorBorder: UnderlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
+        errorStyle:Constants.theme.textTheme.bodySmall!.copyWith(color: Colors.red),
+        errorMaxLines: 4,
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
           borderSide: const BorderSide(
-            color: Colors.deepOrangeAccent,
+            color: Colors.red,
             width: 1,
           ),
         ),
