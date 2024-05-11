@@ -1,4 +1,6 @@
+import 'package:ecommerce/core/config/routes/pages_route_name.dart';
 import 'package:ecommerce/core/widgets/custom_text_field.dart';
+import 'package:ecommerce/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../core/config/app_constants/constants.dart';
@@ -9,7 +11,8 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
+      body:
+      SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -44,14 +47,14 @@ class LoginView extends StatelessWidget {
                 hint: "enter your name",
               ),
               const SizedBox(
-                height: 20,
+                height: 10,
               ),
               Text(
                 "Password",
                 style: Constants.theme.textTheme.bodyLarge,
               ),
               const SizedBox(
-                height: 15,
+                height: 10,
               ),
               const CustomTextField(
                 hint: "enter your password",
@@ -59,7 +62,7 @@ class LoginView extends StatelessWidget {
                 maxLines: 1,
               ),
               const SizedBox(
-                height: 10,
+                height: 7,
               ),
               Align(
                   alignment: Alignment.centerRight,
@@ -85,10 +88,15 @@ class LoginView extends StatelessWidget {
               const SizedBox(
                 height: 15,
               ),
-              Text(
-                "Don’t have an account? Create Account",
-                style: Constants.theme.textTheme.bodyLarge,
-                textAlign: TextAlign.center,
+              InkWell(
+                onTap: (){
+                  navigatorKey.currentState!.pushNamed(PagesRouteName.registerView);
+                },
+                child: Text(
+                  "Don’t have an account? Create Account",
+                  style: Constants.theme.textTheme.bodyLarge,
+                  textAlign: TextAlign.center,
+                ),
               )
             ],
           ),
