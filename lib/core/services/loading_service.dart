@@ -10,7 +10,7 @@ void configLoading() {
     ..maskType = EasyLoadingMaskType.black
     ..backgroundColor = Colors.white
     ..textColor = Colors.white
-    ..indicatorColor = const Color(0xFF5D9CEC)
+    ..indicatorColor =  Colors.black
     ..userInteractions = false
     ..dismissOnTap = false;
 }

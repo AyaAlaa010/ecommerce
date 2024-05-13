@@ -1,10 +1,16 @@
+import 'package:animate_do/animate_do.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:ecommerce/core/config/routes/pages_route_name.dart';
 import 'package:ecommerce/core/extentions/padding_extentions.dart';
 import 'package:ecommerce/core/widgets/border_rounded_button.dart';
 import 'package:ecommerce/core/widgets/custom_text_field.dart';
+import 'package:ecommerce/features/login/manager/login_cubit.dart';
+import 'package:ecommerce/features/login/manager/login_states.dart';
 import 'package:ecommerce/main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import '../../../core/config/app_constants/constants.dart';
 
 class LoginView extends StatefulWidget {
@@ -17,11 +23,14 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   var  formKey=GlobalKey<FormState>();
   var emailController=TextEditingController();
-  var passowrdController=TextEditingController();
+  var passwordController=TextEditingController();
+  
+  LoginCubit loginCubit=LoginCubit();
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
+    return BlocBuilder<LoginCubit,LoginStates>(bloc: loginCubit,builder: (context,state){
+      return SafeArea(
       child: Scaffold(
         body: Center(
           child: SingleChildScrollView(
@@ -31,101 +40,135 @@ class _LoginViewState extends State<LoginView> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Image.asset(
-                    "assets/images/route_logo_registration.png",
+                  FadeInUp(
+                    delay: const Duration(milliseconds: 100),
+                    child: Image.asset(
+                      "assets/images/route_logo_registration.png",
+                    ),
                   ),
                   const SizedBox(
                     height: 30,
                   ),
-                  Text(
-                    "Welcome Back To Route",
-                    style: Constants.theme.textTheme.titleMedium,
+                  FadeInRight(
+                    delay: const Duration(milliseconds: 200),
+                    child: Text(
+                      "Welcome Back To Route",
+                      style: Constants.theme.textTheme.titleMedium,
+                    ),
                   ),
-                  Text(
-                    "Please sign in with your mail",
-                    style: Constants.theme.textTheme.bodySmall!,
+                  FadeInRight(
+                    delay: const Duration(milliseconds: 300),
+                    child: Text(
+                      "Please sign in with your mail",
+                      style: Constants.theme.textTheme.bodySmall!,
+                    ),
                   ),
                   const SizedBox(
                     height: 30,
                   ),
-                  Text(
-                    "E-mail",
-                    style: Constants.theme.textTheme.bodyLarge,
+                  FadeInRight(
+                    delay: const Duration(milliseconds:400 ),
+                    child: Text(
+                      "E-mail",
+                      style: Constants.theme.textTheme.bodyLarge,
+                    ),
                   ),
                   const SizedBox(
                     height: 15,
                   ),
-                   CustomTextField(controller: emailController ,maxLines: 1,
-                    hint: "enter your E-mail",
-                     onValidate: (value){
-                     if(value==null || value.trim().isEmpty){
-                       return "please enter your E-mail";
-      
-                     }
-                       return null;}
-      
-                     ,
+                  CustomTextField(controller: emailController ,maxLines: 1,
+                    hint: "enter your E-mail",keyboardType: TextInputType.emailAddress,
+                    onValidate: (value){
+                      if(value==null || value.trim().isEmpty){
+                        return "please enter your E-mail";
+
+                      }
+                      return null;}
+
+                    ,
                   ),
                   const SizedBox(
                     height: 10,
                   ),
-                  Text(
-                    "Password",
-                    style: Constants.theme.textTheme.bodyLarge,
+                  FadeInRight(
+                    delay: const Duration(milliseconds: 500),
+                    child: Text(
+                      "Password",
+                      style: Constants.theme.textTheme.bodyLarge,
+                    ),
                   ),
                   const SizedBox(
                     height: 10,
                   ),
-                   CustomTextField(
-                    controller: passowrdController,
+                  CustomTextField(
+                    controller: passwordController,
                     hint: "enter your password",
                     isPassword: true,
+                    keyboardType: TextInputType.text,
                     maxLines: 1,
-                     onValidate: (value){
+                    onValidate: (value){
                       if( value==null||value.trim().isEmpty){
                         return "enter your Password";
                       }
-                        return null;
-      
-      
-                     },
+                      return null;
+
+
+                    },
                   ),
                   const SizedBox(
                     height: 7,
                   ),
-                  Align(
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        "Forgot password",
-                        style: Constants.theme.textTheme.bodyLarge!
-                            .copyWith(fontWeight: FontWeight.w400),
-                      )),
+                  FadeInRight(
+                    delay: const Duration(milliseconds:600 ),
+                    child: Align(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          "Forgot password",
+                          style: Constants.theme.textTheme.bodyLarge!
+                              .copyWith(fontWeight: FontWeight.w400),
+                        )),
+                  ),
                   const SizedBox(
                     height: 30,
                   ),
-                  BorderRoundedButton(
-                    title: "Login",
-                    textStyle: Constants.theme.textTheme.titleSmall,
-                    onPressed: () {
-      
-                      if(formKey.currentState!.validate()){
-                        print("done");
-                      }
-      
-                    },
+                  FadeInRight(
+                    delay: const Duration(milliseconds:700 ),
+                    child: BorderRoundedButton(
+                      title: "Login",
+                      textStyle: Constants.theme.textTheme.titleSmall,
+                      onPressed: () {
+                        EasyLoading.show();
+                        if(formKey.currentState!.validate()){
+                          loginCubit.login(emailController.text.toString(), passwordController.text.toString()).then((value) {
+                            if(value){
+                              print("done");
+                              // EasyLoading.dismiss();
+                            }
+                            else{
+                           //   EasyLoading.dismiss();
+                              print("errorrrrrrrrrrrrrrrrrr");
+                            }
+                          });
+                        }
+
+                      },
+                    ),
                   ),
                   const SizedBox(
                     height: 15,
                   ),
-                  InkWell(
-                    onTap: () {
-                      navigatorKey.currentState!
-                          .pushNamed(PagesRouteName.registerView);
-                    },
-                    child: Text(
-                      "Don’t have an account? Create Account",
-                      style: Constants.theme.textTheme.bodyLarge,
-                      textAlign: TextAlign.center,
+                  FadeInRight(
+                    delay: const Duration(milliseconds: 800),
+                    child: InkWell(
+                      onTap: () {
+                        navigatorKey.currentState!
+                            .pushNamed(PagesRouteName.registerView);
+                      },
+                      child: Text(
+                        "Don’t have an account? Create Account",
+                        style: Constants.theme.textTheme.bodyLarge,
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   )
                 ],
@@ -135,5 +178,6 @@ class _LoginViewState extends State<LoginView> {
         ),
       ),
     );
+    });
   }
 }

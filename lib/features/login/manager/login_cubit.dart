@@ -33,11 +33,13 @@ class LoginCubit extends Cubit<LoginStates>{
     final result=  await  loginUseCase.execute(email, password);
     return  result.fold((fail) {
        var error= fail as ServerFailure;
-       emit(ErrorLogin());
+       emit(ErrorLogin(error.message!));
        return  Future.value(false);
+      // return  Left(ServerFailure(message: error.message,statusCode: error.statusCode));
      }, (data) {
        emit(SuccessLogin());
-       return Future.value(true);
+        return Future.value(true);
+      // return const Right(true);
      });
 }
 
