@@ -34,6 +34,7 @@ class LoginCubit extends Cubit<LoginStates>{
     return  result.fold((fail) {
        var error= fail as ServerFailure;
        emit(ErrorLogin(error.message!));
+       print("error ==== ${error.message}");//todo toast
        return  Future.value(false);
       // return  Left(ServerFailure(message: error.message,statusCode: error.statusCode));
      }, (data) {
