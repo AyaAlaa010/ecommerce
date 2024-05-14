@@ -6,6 +6,11 @@ class ApplicationThemeManager {
       primaryColor: AppColors.primaryColor,
       scaffoldBackgroundColor: AppColors.primaryColor,
       useMaterial3: true,
+
+      appBarTheme: const AppBarTheme(
+        backgroundColor: Colors.transparent,
+        iconTheme: IconThemeData(color: Colors.white)
+      ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: AppColors.primaryColor,
         type: BottomNavigationBarType.fixed,

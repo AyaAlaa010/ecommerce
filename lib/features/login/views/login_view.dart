@@ -142,10 +142,10 @@ class _LoginViewState extends State<LoginView> {
                           loginCubit.login(emailController.text.toString(), passwordController.text.toString()).then((value) {
                             if(value){
                               print("done");
-                              // EasyLoading.dismiss();
+                               EasyLoading.dismiss();
                             }
                             else{
-                           //   EasyLoading.dismiss();
+                              EasyLoading.dismiss();
                               print("errorrrrrrrrrrrrrrrrrr");
                             }
                           });
@@ -164,10 +164,15 @@ class _LoginViewState extends State<LoginView> {
                         navigatorKey.currentState!
                             .pushNamed(PagesRouteName.registerView);
                       },
-                      child: Text(
-                        "Don’t have an account? Create Account",
-                        style: Constants.theme.textTheme.bodyLarge,
-                        textAlign: TextAlign.center,
+                      child: TextButton(
+                        onPressed: (){
+                          navigatorKey.currentState!.pushNamed(PagesRouteName.registerView);
+                        },
+                        child: Text(
+                          "Don’t have an account? Create Account",
+                          style: Constants.theme.textTheme.bodyLarge,
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ),
                   )

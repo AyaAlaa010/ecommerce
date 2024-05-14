@@ -28,6 +28,9 @@ class _RegisterViewState extends State<RegisterView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          toolbarHeight: 40,
+        ),
           body: Center(
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
